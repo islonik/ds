@@ -60,19 +60,16 @@ def binary_search_guess_a_number_with_range(number, lowest_range, highest_range)
     highest_range = range_correction(highest_range)
     # core logic
     attempts = 0
-    predict = round((highest_range - lowest_range) / 2)
+    predict = int((highest_range - lowest_range) / 2)
     while number != predict:
         attempts += 1
         if number > predict:
             lowest_range = predict
-            predict = predict + round((highest_range - predict) / 2)
+            predict = predict + int((highest_range - predict) / 2)
         elif number < predict:
             highest_range = predict
             # fix corner case with number = 1 and predict = 2
-            temp = predict
-            predict = round((predict + lowest_range) / 2)
-            if predict == temp:
-                predict -= 1
+            predict = int((predict + lowest_range) / 2)
         predict = range_correction(predict)
     return (attempts)
 
