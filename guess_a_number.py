@@ -68,7 +68,6 @@ def binary_search_guess_a_number_with_range(number, lowest_range, highest_range)
             predict = predict + int((highest_range - predict) / 2)
         elif number < predict:
             highest_range = predict
-            # fix corner case with number = 1 and predict = 2
             predict = int((predict + lowest_range) / 2)
         predict = range_correction(predict)
     return (attempts)
@@ -85,7 +84,7 @@ def score_game(function_name):
     # run it n (> 100) times, to find out how fast we could guess a number
     count_ls = []
     np.random.seed(1)  # setup RANDOM SEED, for science and repeatability
-    random_array = np.random.randint(LO_BORDER, HI_BORDER, size=(10000))
+    random_array = np.random.randint(LO_BORDER, HI_BORDER, size=(100000))
     for number in random_array:
         count_ls.append(function_name(number))
     score = int(np.mean(count_ls))
