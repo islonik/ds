@@ -1,12 +1,14 @@
 import random
 import numpy as np
 
-LO_BORDER = 1   # constant, DO NOT reassign
-HI_BORDER = 100 # constant, DO NOT reassing
+LO_BORDER = 1  # constant, DO NOT reassign
+HI_BORDER = 100  # constant, DO NOT reassing
+
 
 def manual_guess_a_number():
     attempts = 0
-    secret_number = random.randrange(99) + 1  # Integer from 0 to 98 inclusive + 1 -> we generate a number between 1 and 99
+    # Integer from 0 to 99 inclusive + 1 -> we generate a number between 1 and 100
+    secret_number = random.randrange(99) + 1
     print("Let's play a game. You should guess a secret number.")
     while True:
         guess = HI_BORDER
@@ -33,7 +35,7 @@ def dumb_guess_a_number(number):
         attempts += 1
         if number == predict:
             break
-    return (attempts)
+    return attempts
 
 
 def incremental_guess_a_number(number):
@@ -47,11 +49,12 @@ def incremental_guess_a_number(number):
             predict += 1
         elif number < predict:
             predict -= 1
-    return (attempts)
+    return attempts
 
 
 def binary_search_guess_a_number(number):
     return binary_search_guess_a_number_with_range(number, LO_BORDER, HI_BORDER)
+
 
 def binary_search_guess_a_number_with_range(number, lowest_range, highest_range):
     # attempt to guess a random number using binary search
@@ -70,7 +73,8 @@ def binary_search_guess_a_number_with_range(number, lowest_range, highest_range)
             highest_range = predict
             predict = int((predict + lowest_range) / 2)
         predict = range_correction(predict)
-    return (attempts)
+    return attempts
+
 
 def range_correction(number):
     # validation
@@ -79,6 +83,7 @@ def range_correction(number):
     elif number < LO_BORDER:
         number = LO_BORDER
     return number
+
 
 def score_game(function_name):
     # run it n (> 100) times, to find out how fast we could guess a number
@@ -89,6 +94,7 @@ def score_game(function_name):
         count_ls.append(function_name(number))
     score = int(np.mean(count_ls))
     print(f"Your algorithm can guess a number in {score} attempts.")
-    return (score)
+    return score
+
 
 score_game(binary_search_guess_a_number)
