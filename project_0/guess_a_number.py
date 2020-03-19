@@ -2,7 +2,7 @@ import random
 import numpy as np
 
 LO_BORDER = 1  # constant, DO NOT reassign
-HI_BORDER = 100  # constant, DO NOT reassing
+HI_BORDER = 100  # constant, DO NOT reassign
 
 
 def manual_guess_a_number():
@@ -16,7 +16,7 @@ def manual_guess_a_number():
             guess = int(input("Your guess:"))
             attempts += 1
         except ValueError:
-            print("You are dumb bitch. It's not a number.")
+            print("You are a dumb bitch. It's not a number.")
         if guess == secret_number:
             print("Congratulations. You win. You did " + str(attempts) + " attempts.")
             break
@@ -41,7 +41,7 @@ def dumb_guess_a_number(number):
 def incremental_guess_a_number(number):
     # attempt to guess a random number using incremental approach
     # we increase or decrease our number by 1
-    attempts = 0
+    attempts = 1
     predict = np.random.randint(LO_BORDER, HI_BORDER)
     while number != predict:
         attempts += 1
@@ -62,7 +62,7 @@ def binary_search_guess_a_number_with_range(number, lowest_range, highest_range)
     lowest_range = range_correction(lowest_range)
     highest_range = range_correction(highest_range)
     # core logic
-    attempts = 0
+    attempts = 1
     predict = int((highest_range - lowest_range) / 2)
     while number != predict:
         attempts += 1
@@ -72,7 +72,6 @@ def binary_search_guess_a_number_with_range(number, lowest_range, highest_range)
         elif number < predict:
             highest_range = predict
             predict = int((predict + lowest_range) / 2)
-        predict = range_correction(predict)
     return attempts
 
 
@@ -89,7 +88,7 @@ def score_game(function_name):
     # run it n (> 100) times, to find out how fast we could guess a number
     count_ls = []
     np.random.seed(1)  # setup RANDOM SEED, for science and repeatability
-    random_array = np.random.randint(LO_BORDER, HI_BORDER, size=(100000))
+    random_array = np.random.randint(LO_BORDER, HI_BORDER, size=100000)
     for number in random_array:
         count_ls.append(function_name(number))
     score = int(np.mean(count_ls))
