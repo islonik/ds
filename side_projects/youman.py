@@ -6,7 +6,7 @@ import subprocess
 
 DOWNLOAD_FOLDER = '/Users/inikki/Downloads/video'  # constant, DO NOT reassign
 
-
+# this '&' symbol is used in console to concatenate commands so be aware about when you copy-paste urls from YouTube
 def main(argv):
     youtube_url = ''
     is_subs = False
