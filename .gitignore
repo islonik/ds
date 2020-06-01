@@ -9,7 +9,9 @@ RemoteSystemsTempFiles/
 .settings/
 .classpath
 .project
-#Intellij Idea
+#Intellij Idea & IPython
+profile_default/
+ipython_config.py
 .idea/
 *.iml
 
@@ -21,3 +23,5 @@ target/
 # some non-source directories and files
 *.log
 *.DS_Store
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
