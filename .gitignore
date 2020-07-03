@@ -23,5 +23,5 @@ target/
 # some non-source directories and files
 *.log
 *.DS_Store
-.ipynb_checkpoints
-*/.ipynb_checkpoints/*
+#.ipynb_checkpoints
+#*/.ipynb_checkpoints/*
