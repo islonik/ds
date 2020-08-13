@@ -1,48 +1,50 @@
-import random
+import sys
 import numpy as np
 
-LO_BORDER = 1  # constant, DO NOT reassign
+LO_BORDER = 0  # constant, DO NOT reassign
 HI_BORDER = 100  # constant, DO NOT reassign
 
 
-def manual_guess_a_number():
-    attempts = 0
-    # Integer from 0 to 99 inclusive + 1 -> we generate a number between 1 and 100
-    secret_number = random.randrange(99) + 1
+# made for fun, could not be used for real testing
+def manual_guess_the_number(number):
+    attempts = 1
     print("Let's play a game. You should guess a secret number.")
     while True:
         guess = HI_BORDER
         try:
-            guess = int(input("Your guess:"))
-            attempts += 1
+            value = input("Your guess:")
+            if value == 'exit':
+                sys.exit("Terminate the program.")
+            guess = int(value)
         except ValueError:
             print("You are a dumb bitch. It's not a number.")
-        if guess == secret_number:
+        if guess == number:
             print("Congratulations. You win. You did " + str(attempts) + " attempts.")
             break
-        elif guess < secret_number:
+        elif guess < number:
             print("Nope. The secret number should be bigger.")
-        elif guess > secret_number:
+        elif guess > number:
             print("Nope. The secret number should be less.")
+        attempts += 1
 
 
-def dumb_guess_a_number(number):
+def dumb_guess_the_number(number):
     # attempt to guess a random number using random
     # we generate a new random number each time
-    attempts = 0
+    attempts = 1
     while True:
         predict = np.random.randint(LO_BORDER, HI_BORDER)  # we generate a number between 1 and 100
-        attempts += 1
         if number == predict:
             break
+        attempts += 1
     return attempts
 
 
-def incremental_guess_a_number(number):
+def incremental_guess_the_number(number):
     # attempt to guess a random number using incremental approach
     # we increase or decrease our number by 1
     attempts = 1
-    predict = np.random.randint(LO_BORDER, HI_BORDER)
+    predict = np.random.randint(LO_BORDER, HI_BORDER)  # we generate a number between 1 and 100
     while number != predict:
         attempts += 1
         if number > predict:
@@ -52,11 +54,11 @@ def incremental_guess_a_number(number):
     return attempts
 
 
-def binary_search_guess_a_number(number):
-    return binary_search_guess_a_number_with_range(number, LO_BORDER, HI_BORDER)
+def binary_search_guess_the_number(number):
+    return binary_search_impl(number, LO_BORDER, HI_BORDER)
 
 
-def binary_search_guess_a_number_with_range(number, lowest_range, highest_range):
+def binary_search_impl(number, lowest_range, highest_range):
     # attempt to guess a random number using binary search
     number = range_correction(number)
     lowest_range = range_correction(lowest_range)
@@ -85,7 +87,7 @@ def range_correction(number):
 
 
 def score_game(function_name):
-    # run it n (> 100) times, to find out how fast we could guess a number
+    # run it n (> 1000) times, to find out how fast we could guess a number
     count_ls = []
     np.random.seed(1)  # setup RANDOM SEED, for science and repeatability
     random_array = np.random.randint(LO_BORDER, HI_BORDER, size=100000)
@@ -96,4 +98,4 @@ def score_game(function_name):
     return score
 
 
-score_game(binary_search_guess_a_number)
+score_game(binary_search_guess_the_number)
